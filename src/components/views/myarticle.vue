@@ -1,7 +1,9 @@
 <template>
-  <div class="info">
+  <div class="myarticle">
+      <ul>
+        <li></li>
+      </ul>
 
-      这是myarticle组件
   </div>
 </template>
 
@@ -9,25 +11,39 @@
   export default{
     data(){
       return{
-        labelPosition:'left'
+        uid:window.sessionStorage.getItem('id')
       }
+    },
+    methods:{
+      selectArticle(){
+        this.$http.post('/selectArticle',{uid:this.uid}).then(dat=>{
+          console.log(dat)
+        })
+      }
+    },
+    mounted(){
+      this.selectArticle();
     }
   }
+
 </script>
 
 <style scoped="scoped">
-.info{
-  height: 600px;
-  width: 50%;
-  margin: 0 auto;
-  background-color: white;
-}
+  *{
+    margin: 0;
+    padding: 0;
+  }
+  .myarticle{
+    height:auto;
+    min-height:650px;
+    width:70%;
+    background:#bbeeeb;
+    margin:0 auto;
+  }
 ul{
   list-style: none;
-  margin: 0;
-  padding: 0;
 }
 li{
-  height: 100px;
+  height: 10px;
 }
 </style>

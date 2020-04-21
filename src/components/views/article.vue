@@ -17,7 +17,7 @@
 
 <style scoped="scoped">
 .info{
-  height: 600px;
+  height: 800px;
   width: 50%;
   margin: 0 auto;
   background-color: white;
@@ -30,4 +30,7 @@ ul{
 li{
   height: 100px;
 }
+.ql-editor{
+          height:400px;
+      }
 </style>

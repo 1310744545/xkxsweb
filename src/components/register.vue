@@ -72,8 +72,8 @@
             },
             {
               min: 2,
-              max: 8,
-              message: '长度在 2 到 8 个字符',
+              max: 5,
+              message: '长度在 2 到 5 个字符',
               trigger: 'blur'
             }
           ],

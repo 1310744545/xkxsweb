@@ -11,6 +11,7 @@ import About from './components/views/about.vue'
 import Other from './components/views/other.vue'
 import Writearticle from './components/views/writearticle.vue'
 import Myarticle from './components/views/myarticle.vue'
+import error from './components/error.vue'
 
 Vue.use(Router)
 
@@ -56,6 +57,14 @@ const router = new Router({
     }, {
       path: '/login',
       component: Login
+    },
+    {
+    path:'*',
+    component:error,
+    name:'error',
+    meta:{
+    title:'页面没找到'
+    }
     }
   ]
 })

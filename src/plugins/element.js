@@ -15,7 +15,10 @@ import {
   Submenu,
   Col,
   Avatar,
-  Calendar
+  Calendar,
+  Carousel,
+  CarouselItem,
+  Footer
 } from 'element-ui'
 
 Vue.use(Button)
@@ -33,4 +36,7 @@ Vue.use(Submenu)
 Vue.use(Col)
 Vue.use(Avatar)
 Vue.use(Calendar)
+Vue.use(Carousel)
+Vue.use(CarouselItem)
+Vue.use(Footer)
 Vue.prototype.$message = Message

@@ -36,7 +36,7 @@
             </el-form-item>
           </li>
           <li>
-            <el-form-item label="个人简介:" prop="introduction">
+            <el-form-item label="个人简介:" prop="introduction" show-word-limit>
               <el-input type="textarea" :autosize="{ minRows: 2, maxRows: 4}" placeholder="请输入内容" v-model="GodInfo.introduction">{{GodInfo.introduction}}</el-input>
             </el-form-item>
           </li>
@@ -86,8 +86,8 @@
         rules: {
           name: [{
             min: 2,
-            max: 8,
-            message: '长度在 2 到 8 个字符',
+            max: 5,
+            message: '长度在 2 到 5 个字符',
             trigger: 'blur'
           }],
           email: [{

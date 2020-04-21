@@ -87,6 +87,7 @@
                   });
                   window.sessionStorage.setItem('loginFlag',true)
                   window.sessionStorage.setItem('id',dat.data.id)
+                  window.sessionStorage.setItem('myrouter','/index/index')
                   this.$router.push({
                     path: '/index/index'
                   })

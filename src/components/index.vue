@@ -9,7 +9,7 @@
 
           <a href="localhost"><img src="../static/logo.jpg" style="width: 40px;height: 40px;margin: 12px 40px 0 50px;" /></a>
           <el-menu-item index="/index/index"> 首页</el-menu-item>
-          <el-menu-item index="/index/article"> 文章</el-menu-item>
+          <el-menu-item index="/index/article"> 帖子</el-menu-item>
           <el-menu-item index="/index/movies"> 影视</el-menu-item>
           <el-menu-item index="/index/about"> 关于</el-menu-item>
           <el-menu-item index="/index/other"> 后续待开发</el-menu-item>
@@ -26,14 +26,15 @@
           <li>
             <el-menu v-if="loginFlag" class="el-menu-demo" mode="horizontal" :default-active="activeIndex" @select="handleSelect">
               <el-submenu index=null>
-                <template slot="title"><i class="el-icon-tickets"></i>文章</template>
-                <el-menu-item index="/index/writearticle"><i class="el-icon-edit"></i> 写文章</el-menu-item>
-                <el-menu-item index="/index/myarticle"><i class="el-icon-tickets"></i>我的文章</el-menu-item>
+                <template slot="title"><i class="el-icon-tickets"></i>帖子</template>
+                <el-menu-item index="/index/writearticle"><i class="el-icon-edit"></i> 发帖子</el-menu-item>
+                <el-menu-item index="/index/myarticle"><i class="el-icon-tickets"></i>我的帖子</el-menu-item>
               </el-submenu>
             </el-menu>
           </li>
           <li>
-            <el-menu v-if="loginFlag" class="el-menu-demo" mode="horizontal" :default-active="activeIndex" @select="handleSelect" router>
+            <el-menu v-if="loginFlag" class="el-menu-demo" mode="horizontal" :default-active="activeIndex" @select="handleSelect"
+              router>
               <el-submenu index=null>
                 <template slot="title" :name.sync='name'><i class="el-icon-s-custom"></i>{{name}}</template>
                 <el-menu-item index="/index/info">个人信息</el-menu-item>
@@ -46,7 +47,9 @@
             <el-row class="demo-avatar demo-basic">
               <el-col :span="12">
                 <div class="demo-basic--circle">
-                  <div class="block"><el-avatar :size="50" :src="headImg"></el-avatar></div>
+                  <div class="block">
+                    <el-avatar :size="50" :src="headImg"></el-avatar>
+                  </div>
                 </div>
               </el-col>
             </el-row>
@@ -65,6 +68,7 @@
       <!-- 监听update事件 子组件通过this.$emit('updatename')来触发 -->
       <router-view @updatename="updatname($event)"></router-view>
     </el-main>
+    <el-footer height="100px"></el-footer>
   </el-container>
 </template>
 
@@ -75,7 +79,10 @@
         loginFlag: false,
         activeIndex: '/index/index',
         name: '',
-        headImg:''
+        headImg: '',
+        defaultHeight:{
+          height:''
+        }
       }
     },
     methods: {
@@ -92,10 +99,10 @@
         // console.log(key);
         // console.log(keyPath);
         if (key != this.activeIndex) { //解决路由重复
-          this.$router.push(key);//切换组件
+          this.$router.push(key); //切换组件
         }
         this.activeIndex = key;
-        window.sessionStorage.setItem("myrouter",key);
+        window.sessionStorage.setItem("myrouter", key);
       },
       loginchick() { //登录检查
         this.loginFlag = window.sessionStorage.getItem('loginFlag');
@@ -106,22 +113,24 @@
             'id': window.sessionStorage.getItem('id')
           }).then(dat => {
             this.name = dat.data.name;
-            this.headImg=dat.data.headImg;
+            this.headImg = dat.data.headImg;
           })
         }
       },
-      updatname($event){
-        this.name=$event
+      updatname($event) {
+        this.name = $event
       },
-      updaterouter(){
-        this.activeIndex=window.sessionStorage.getItem("myrouter");
+      updaterouter() {
+        this.activeIndex = window.sessionStorage.getItem("myrouter");
       }
-    },
-    created() {
-      this.loginchick();
-      this.searchUser();
-      this.updaterouter();
-    }
+  },
+  created() {
+    this.loginchick();
+    this.searchUser();
+  },
+  mounted() {
+    this.updaterouter();
+  }
   }
 </script>
 
@@ -132,7 +141,10 @@
     background-color: rgb(255, 255, 255);
     font-size: 30px;
     display: flex;
-    justify-content: space-between
+
+    justify-content: space-between;
+    border-color: #C8CBCF;
+    ;
   }
 
   .indexleft,
@@ -148,23 +160,25 @@
   .ulright>li {
     list-style: none;
     float: right;
-    width: 120px;
+    width: 135px;
   }
 
   .el-main {
     background-color: rgb(245, 247, 249);
-    height: 100%;
+    /* height: 100%; */
     width: 100%;
     /* background: url(../static/background.jpg) no-repeat 0px 0px; */
     background-position: center;
     background-size: cover;
     background-repeat: no-repeat;
-    min-height: 100vh;
+    /* min-height: 100vh; */
     font-family: 'Roboto', sans-serif;
     overflow: hidden;
+
   }
 
   el-button {
     left: 0;
   }
+
 </style>
