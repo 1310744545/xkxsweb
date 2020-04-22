@@ -5,13 +5,27 @@ import './plugins/element.js'
 import $ from 'jquery'
 
 import axios from 'axios'
-axios.defaults.baseURL='http://localhost/'   //请求的根路径
-axios.interceptors.request.use(config=>{
+axios.defaults.baseURL = 'http://localhost/' //请求的根路径
+axios.interceptors.request.use(config => {
   // console.log(config)
-  config.headers.Authorizaion=window.sessionStorage.getItem('loginflag')  //给请求头中添加一个Authorizaion
+  config.headers.Authorizaion = window.sessionStorage.getItem('loginflag') //给请求头中添加一个Authorizaion
   return config
 })
-Vue.prototype.$http=axios
+Vue.prototype.$http = axios
+
+router.beforeEach((to, from, next) => {
+  if (to.path === '/index/writearticle' || to.path === '/index/myarticle' || to.path === '/index/articledetail' ||
+    to.path === '/index/info'){
+      if(window.sessionStorage.getItem('loginFlag')){
+        return next();
+      }else{
+        return next('/login');
+      }
+    }else{
+      next();
+    }
+    next();
+});
 
 
 //导入全局样式表

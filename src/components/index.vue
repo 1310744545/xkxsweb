@@ -28,7 +28,7 @@
               <el-submenu index=null>
                 <template slot="title"><i class="el-icon-tickets"></i>帖子</template>
                 <el-menu-item index="/index/writearticle"><i class="el-icon-edit"></i> 发帖子</el-menu-item>
-                <el-menu-item index="/index/myarticle"><i class="el-icon-tickets"></i>我的帖子</el-menu-item>
+                <el-menu-item index="/index/myarticle"@click="toMyArticle"><i class="el-icon-tickets"></i>我的帖子</el-menu-item>
               </el-submenu>
             </el-menu>
           </li>
@@ -37,9 +37,9 @@
               router>
               <el-submenu index=null>
                 <template slot="title" :name.sync='name'><i class="el-icon-s-custom"></i>{{name}}</template>
-                <el-menu-item index="/index/info">个人信息</el-menu-item>
-                <el-menu-item index="">选项2</el-menu-item>
-                <el-menu-item index="">选项3</el-menu-item>
+                <el-menu-item index="/index/info/">个人信息</el-menu-item>
+                <el-menu-item index="">后续待开发</el-menu-item>
+                <el-menu-item index="">...</el-menu-item>
               </el-submenu>
             </el-menu>
           </li>
@@ -78,6 +78,7 @@
       return {
         loginFlag: false,
         activeIndex: '/index/index',
+        id:window.sessionStorage.getItem('id'),
         name: '',
         headImg: '',
         defaultHeight:{
@@ -110,7 +111,7 @@
       searchUser() {
         if (this.loginFlag) {
           this.$http.post('/God', {
-            'id': window.sessionStorage.getItem('id')
+            'id': this.id
           }).then(dat => {
             this.name = dat.data.name;
             this.headImg = dat.data.headImg;
@@ -122,6 +123,11 @@
       },
       updaterouter() {
         this.activeIndex = window.sessionStorage.getItem("myrouter");
+      },
+      toMyArticle(){
+        this.$router.push({
+                  path: `/index/myarticle/${this.id}`,
+                })
       }
   },
   created() {

@@ -18,7 +18,12 @@ import {
   Calendar,
   Carousel,
   CarouselItem,
-  Footer
+  Footer,
+  Divider,
+  Popconfirm,
+  Link,
+  Pagination,
+  Card
 } from 'element-ui'
 
 Vue.use(Button)
@@ -39,4 +44,9 @@ Vue.use(Calendar)
 Vue.use(Carousel)
 Vue.use(CarouselItem)
 Vue.use(Footer)
+Vue.use(Divider)
+Vue.use(Popconfirm)
+Vue.use(Link)
+Vue.use(Pagination)
+Vue.use(Card)
 Vue.prototype.$message = Message

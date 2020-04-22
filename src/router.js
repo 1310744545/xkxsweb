@@ -12,6 +12,8 @@ import Other from './components/views/other.vue'
 import Writearticle from './components/views/writearticle.vue'
 import Myarticle from './components/views/myarticle.vue'
 import error from './components/error.vue'
+import Articledetail from './components/views/articleDetail.vue'
+import PeopleArticle from './components/views/peopleArticle.vue'
 
 Vue.use(Router)
 
@@ -45,14 +47,20 @@ const router = new Router({
       }, {
         path: '/index/other',
         component: Other
-      },
-      {
+      }, {
         path: '/index/writearticle',
         component: Writearticle
-      },
-      {
-        path: '/index/myarticle',
+      }, {
+        path: '/index/myarticle/:id',
         component: Myarticle
+      },{
+        name:'articleDetail',
+        path: '/index/articleDetail',
+        component: Articledetail
+      },{
+        name:'PeopleArticle',
+        path: '/index/PeopleArticle',
+        component: PeopleArticle
       }]
     }, {
       path: '/login',
