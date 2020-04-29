@@ -13,23 +13,27 @@
     </div>
     <div class="article">
       <ul class="upli" v-if="!articleFlag">
-        <li style="font-size: 80px;">该用户很懒啥也没写</li>
+        <li style="font-size: 30px;line-height: 140px;margin: 0 0 0 30%;">该用户很懒啥也没写...</li>
       </ul>
       <ul v-for="item in reverseArticle" :key="item.aid" v-if="articleFlag">
         <li class="upli">
           <div class="title">
-            <router-link :to="{name:'articleDetail',query:{aid:item.aid}}">{{item.title}}</router-link>
+            <router-link :to="{name:'articleDetail',query:{aid:item.aid}}" class="atitle">{{item.title}}</router-link>
             <div class="contentsmall" v-html="replaceImg(item.content)"></div>
           </div>
           <div class="message">
             <ul class="downul">
               <li style="width: auto;height: 36px;border-right:1px solid #DDDDDD">
-                <el-row class="demo-avatar demo-basic" style="float: left;">
-                  <el-col :span="12">
-                    <el-avatar shape="square" :size="size" :src="God.headImg"></el-avatar>
-                  </el-col>
-                </el-row>
-                <span style="float: left;line-height:36px;">{{God.name}}</span>
+                <span style="float: left;">
+                  <router-link :to="{name:'PeopleArticle',query:{uid:God.id}}" style="text-decoration: none;color:#333;font-size: 16px;line-height: 36px;">
+                  <el-row class="demo-avatar demo-basic" style="float: left;">
+                    <el-col :span="12">
+                      <el-avatar shape="square" :size="size" :src="God.headImg"></el-avatar>
+                    </el-col>
+                  </el-row>
+                  {{God.name}}
+                  </router-link>
+                </span>
               </li>
               <li style="width: 140px;height: 36px;border-right:1px solid #DDDDDD">
                 <span style="display:block;text-align:center;font-size: 14px;line-height:36px;">{{item.time}}</span>
@@ -44,10 +48,21 @@
                 <span style="display:block;text-align:center;font-size: 14px;line-height:36px;">阅读数: <b style="color: #007BFF">{{item.read}}</b></span>
               </li>
               <li style="width: 80px;height: 36px;float: right;margin: 0 0 0 13px;">
-                <el-link type="info" :underline="false">删除</el-link>
+                <el-button type="text" @click="deleteArticleAid(item.aid)">删除</el-button>
+                <el-dialog
+                  title="提示"
+                  :visible.sync="dialogVisible"
+                  width="30%"
+                  :before-close="handleClose">
+                  <span>确认要删除吗?</span>
+                  <span slot="footer" class="dialog-footer">
+                    <el-button @click="dialogVisible = false">取 消</el-button>
+                    <el-button type="primary" @click="deleteArticle">确 定</el-button>
+                  </span>
+                </el-dialog>
               </li>
-              <li style="width: 70px;height: 36px;float: right;border-right:1px solid #DDDDDD">
-                <el-link type="primary" :underline="false">修改</el-link>
+              <li style="width: 40px;height: 36px;float: right;border-right:1px solid #DDDDDD">
+                <el-button type="text" @click="updateArticle(item.aid)">修改</el-button>
               </li>
             </ul>
           </div>
@@ -74,12 +89,14 @@
         uid: this.$route.params.id,
         myArticle: [],
         newmyArticle: [],
-        size: "medium",
+        size: "small",
         squareUrl: '',
         articleFlag:true,
         currentPage:1,
         pagesize:5,
-        God: {}
+        God: {},
+        dialogVisible: false,
+        deleteAid:-1
       }
     },
     methods: {
@@ -119,6 +136,29 @@
           this.newmyArticle=this.myArticle.slice(-(val)*this.pagesize,-(val-1)*this.pagesize);
         }
          $(window).scrollTop(0);
+      },
+      handleClose(){
+
+      },
+      deleteArticleAid(aid){
+        this.dialogVisible = true;
+        this.deleteAid=aid;
+      },
+      deleteArticle(){
+        this.dialogVisible = false;
+        this.$http.post('/deleteArticle',{aid:this.deleteAid}).then(dat=>{
+          this.$message({
+            message: '删除成功',
+            type: 'success',
+            duration: 1500,
+            showClose: true
+          })
+          this.selectArticle();
+        })
+      },
+      updateArticle(aid){
+        this.$router.push({name: 'UpdateArticle', query: {aid: aid }})
+        $(window).scrollTop(0);
       }
     },
     mounted() {

@@ -1,7 +1,7 @@
 <template>
   <div class="info">
-    
-      这是about组件
+      <div class="shengming"><h1>声明</h1></div>
+      <div class="content">本站所有资源均来自网络,如有侵权,请联系删除</div>
   </div>
 </template>
 
@@ -16,18 +16,23 @@
 </script>
 
 <style scoped="scoped">
+  *{
+    margin: 0;
+    padding: 0;
+  }
 .info{
   height: 600px;
   width: 50%;
   margin: 0 auto;
   background-color: white;
 }
-ul{
-  list-style: none;
-  margin: 0;
-  padding: 0;
+.shengming{
+  text-align:center;
+  margin: 0 auto;
+font-size: 30px;
 }
-li{
-  height: 100px;
+.content{
+  margin: 10% 0 0 0;
+text-align:center
 }
 </style>

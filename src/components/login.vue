@@ -17,6 +17,7 @@
           <el-button @click='login' type="primary">登录</el-button>
           <el-button @click='register'>注册</el-button>
         </el-form-item>
+        <!-- <span id="qqLoginBtn" @click="qqLogin">asd</span> -->
       </el-form>
     </div>
   </div>
@@ -24,7 +25,8 @@
 
 <script>
   // import '../static/login.css'
-  // import '../static/util.css'
+  // import '../static/qc_jssdk.js'
+
   export default {
     data() {
       return {
@@ -70,7 +72,7 @@
             return;
           } else { //整个表单验证完之后,像后端发起请求
             const result = await this.$http.post('login', this.loginForm)
-              .then((dat) => {					    //dat服务器返回的信息
+              .then((dat) => { //dat服务器返回的信息
                 if (dat.data.code == 400) { //登陆失败
                   this.$message({
                     message: '账号或密码错误',
@@ -85,9 +87,9 @@
                     duration: 1500,
                     showClose: true
                   });
-                  window.sessionStorage.setItem('loginFlag',true)
-                  window.sessionStorage.setItem('id',dat.data.id)
-                  window.sessionStorage.setItem('myrouter','/index/index')
+                  window.localStorage.setItem('loginFlag', true)
+                  window.localStorage.setItem('id', dat.data.id)
+                  window.localStorage.setItem('myrouter', '/index/index')
                   this.$router.push({
                     path: '/index/index'
                   })
@@ -103,7 +105,15 @@
               })
           }
         })
-      },
+      }
+      // ,
+      // qqLogin() {
+      //   // 直接弹出授权页面，授权过后跳转到回调页面进行登录处理
+      //   QC.Login.showPopup({
+      //     appId: '101874222',
+      //     redirectURI: 'xkxxkx.cn'
+      //   })
+      // }
     }
   }
 </script>

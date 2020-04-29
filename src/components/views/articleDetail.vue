@@ -22,7 +22,7 @@
     <el-divider></el-divider>
     <div>
       <div class="writecomment">
-        <el-input v-model="comment.comment" placeholder="请输入评论" type="textarea"></el-input>
+        <el-input v-model="comment.comment" placeholder="请输入评论" type="textarea" maxlength="80" show-word-limit></el-input>
         <el-button type="primary" style="margin: 1% 0 2% 0;width: 100%;" @click='addComment'>发表评论</el-button>
       </div>
     </div>
@@ -35,7 +35,45 @@
           <router-link :to="{name:'PeopleArticle',query:{uid:item.god.id}}"><span style="font-size: 14px;">{{item.god.name}}</span></router-link>
           <span style="font-size: 12px;">#{{index+1}}楼</span>
           <span style="font-size: 12px;">{{timeago(item.time)}}</span>
-          <div style="padding: 20px 0 0 10px;">{{item.comment}}</div>
+          <span style="font-size: 15px" v-if="item.replys!=0"><a href="javascript:;" @click="checkreply(item.cid,index)">查看回复({{item.replys}})</a></span>
+          <span style="font-size: 15px" @click="clickreply(index,item)"><a href="javascript:;">回复</a></span>
+          <div style="padding: 20px 0 0 10px;font-size: 14px;">{{item.comment}}</div>
+         <div v-if="index==activeReply" class="replyDiv"style="background-color: #F7F7F7;border-left: 3px solid #9E9E9E;">
+              <ul v-for="(item,index) in checkreplys">
+                <li style="height: auto;">
+                  <span style="display:block;float:left;margin: 0 -15px 0 0 ; ">
+                    <el-avatar size="small" :src="item.fromImg" ></el-avatar>
+                  </span>
+                <router-link style="line-height: 35px;font-size: 18px;" :to="{name:'PeopleArticle',query:{uid:item.fromId}}">{{item.fromName}}</router-link>回复
+                <router-link style="font-size: 14px;":to="{name:'PeopleArticle',query:{uid:item.toId}}">{{item.toName}}</router-link>
+                :<span style="font-size: 10px;">{{timeago(item.time)}}</span>
+                <span style="font-size: 15px" @click="clickreply2(index,item)"><a href="javascript:;">回复</a></span>
+                <div v-if="index==activeIndex2" class="replyDiv">
+                  <el-input
+                    type="textarea"
+                    :rows="2"
+                    :placeholder="replyName"
+                    maxlength="60" show-word-limit
+                    class="reply"
+                    v-model="reply.content">
+                  </el-input>
+                  <el-button type="primary" class="replyBtn" @click="addreply(activeReply)">回复</el-button>
+                </div>
+                <div style="margin: 0 0 0 10%;font-size: 20px;">{{item.content}}</div>
+                </li>
+              </ul>
+         </div>
+          <div v-if="index==activeIndex" class="replyDiv">
+            <el-input
+              type="textarea"
+              :rows="2"
+              :placeholder="replyName"
+              maxlength="60" show-word-limit
+              class="reply"
+              v-model="reply.content">
+            </el-input>
+            <el-button type="primary" class="replyBtn" @click="addreply(index)">回复</el-button>
+          </div>
         </li>
       </ul>
       <div class="block">
@@ -62,6 +100,9 @@
         result:'',
         currentPage:1,
         pagesize:5,
+        activeIndex:-1,
+        activeIndex2:-1,
+        replyName:'',
         comment: {
           cid:'',
           comment:'',
@@ -79,7 +120,15 @@
           time:''
         },
         commentsget:[],
-        newcommentsget:[]
+        newcommentsget:[],
+        reply:{
+          content:'',
+          cid:'',
+          fromId:window.sessionStorage.getItem('id'),
+          toId:''
+        },
+        checkreplys:[],
+        activeReply:-1
       }
     },
     methods: {
@@ -166,16 +215,70 @@
         this.$http.post('/addComment',this.comment).then(dat=>{
           this.commentsget=dat.data;
           this.newcommentsget=this.commentsget.slice(-this.pagesize).reverse();
+          this.activeIndex=-1;
+          this.comment.comment='';
         })
       },
       commentCheck(){
         this.$http.post('/commentCheck',this.comment).then(dat=>{
           this.commentsget=dat.data;
           this.newcommentsget=this.commentsget.slice(-this.pagesize).reverse();
+          console.log(dat.data)
         })
       },
       gotop(){
         $(window).scrollTop(0);
+      },
+      clickreply(index,item){
+        if(index==this.activeIndex){
+          this.reply.content='';
+          this.activeIndex=-1;
+        }else{
+          this.reply.content='';
+          this.replyName='回复:'+item.god.name;
+          this.reply.cid=item.cid;
+          this.reply.toId=item.god.id;
+          this.activeIndex = index;
+        }
+      },
+      clickreply2(index,item){
+        if(index==this.activeIndex2){
+          this.activeIndex2=-1;
+          this.reply.content='';
+        }else{
+          this.reply.content='';
+          this.replyName='回复:'+item.fromName;
+          this.reply.cid=item.cid;
+          this.reply.toId=item.toId;
+          this.activeIndex2 = index;
+        }
+      },
+      addreply(index,cid){
+        this.$http.post('/addReply',this.reply).then(dat=>{
+          this.newcommentsget[index].replys++;
+          this.activeIndex=-1;
+          this.activeIndex2=-1;
+          this.activeReply=-1;
+          this.reply.content='';
+          this.$message({
+            message: '评论成功',
+            type: 'success',
+            duration: 1500,
+            showClose: true
+          });
+
+        })
+      },
+      checkreply(cid,index){
+        if(index==this.activeReply){
+          this.activeReply=-1;
+        }else{
+          this.activeIndex2=-1;
+          this.activeReply=index;
+          this.$http.post('/selectReply',{'cid':cid}).then(dat=>{
+            this.checkreplys=dat.data.reverse();
+          })
+        }
       }
     },
     mounted() {
@@ -232,10 +335,24 @@
     /* width: 80%; */
   }
   li{
-    height: 70px;
+    height: auto;
     border-bottom: 1px solid #C8CBCF;
   }
   a{
     text-decoration: none;
+    color: blue;
   }
+  a:hover{
+    color: #000088;
+  }
+  .replyDiv{
+    width: 95%;
+    margin: 0 0 0 5%;
+
+  }
+</style>
+<style>
+img{
+ width: 100%;
+ }
 </style>

@@ -23,7 +23,8 @@ import {
   Popconfirm,
   Link,
   Pagination,
-  Card
+  Card,
+  Dialog
 } from 'element-ui'
 
 Vue.use(Button)
@@ -49,4 +50,5 @@ Vue.use(Popconfirm)
 Vue.use(Link)
 Vue.use(Pagination)
 Vue.use(Card)
+Vue.use(Dialog)
 Vue.prototype.$message = Message

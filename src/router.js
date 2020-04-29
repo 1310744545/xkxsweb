@@ -5,7 +5,7 @@ import Login from './components/login.vue'
 import Register from './components/register.vue'
 import ContainIndex from './components/views/index.vue'
 import Info from './components/views/info.vue'
-import Movies from './components/views/movies.vue'
+import MovieList from './components/views/movieList.vue'
 import Article from './components/views/article.vue'
 import About from './components/views/about.vue'
 import Other from './components/views/other.vue'
@@ -14,6 +14,9 @@ import Myarticle from './components/views/myarticle.vue'
 import error from './components/error.vue'
 import Articledetail from './components/views/articleDetail.vue'
 import PeopleArticle from './components/views/peopleArticle.vue'
+import UpdateArticle from './components/views/updateArticle.vue'
+import MovieDetail from './components/views/movieDetail.vue'
+import MoviePlay from './components/views/moviePlay.vue'
 
 Vue.use(Router)
 
@@ -36,8 +39,8 @@ const router = new Router({
         path: '/index/info',
         component: Info
       }, {
-        path: '/index/movies',
-        component: Movies
+        path: '/index/MovieList',
+        component: MovieList
       }, {
         path: '/index/article',
         component: Article
@@ -61,6 +64,18 @@ const router = new Router({
         name:'PeopleArticle',
         path: '/index/PeopleArticle',
         component: PeopleArticle
+      },{
+        name:'UpdateArticle',
+        path: '/index/UpdateArticle',
+        component: UpdateArticle
+      },{
+        name:'MovieDetail',
+        path: '/index/MovieDetail',
+        component: MovieDetail
+      },{
+        name:'MoviePlay',
+        path: '/index/MoviePlay',
+        component: MoviePlay
       }]
     }, {
       path: '/login',

@@ -1,7 +1,5 @@
 <template>
   <div class="info">
-    
-      这是other组件
   </div>
 </template>
 

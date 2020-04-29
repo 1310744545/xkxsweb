@@ -73,10 +73,10 @@
         labelPosition: 'top',
         show: false,
         params:{
-          headid:window.sessionStorage.getItem('id')
+          headid:window.localStorage.getItem('id')
         },
         GodInfo: {
-          id: window.sessionStorage.getItem('id'),
+          id: window.localStorage.getItem('id'),
           name: '',
           email: '',
           url: '',

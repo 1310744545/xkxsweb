@@ -10,7 +10,7 @@
           <a href="localhost"><img src="../static/logo.jpg" style="width: 40px;height: 40px;margin: 12px 40px 0 50px;" /></a>
           <el-menu-item index="/index/index"> 首页</el-menu-item>
           <el-menu-item index="/index/article"> 帖子</el-menu-item>
-          <el-menu-item index="/index/movies"> 影视</el-menu-item>
+          <el-menu-item index="/index/MovieList"> 影视</el-menu-item>
           <el-menu-item index="/index/about"> 关于</el-menu-item>
           <el-menu-item index="/index/other"> 后续待开发</el-menu-item>
         </el-menu>
@@ -68,7 +68,11 @@
       <!-- 监听update事件 子组件通过this.$emit('updatename')来触发 -->
       <router-view @updatename="updatname($event)"></router-view>
     </el-main>
-    <el-footer height="100px"></el-footer>
+    <el-footer height="100px" style="font-size: 12px;text-align: center;">
+      <span><a href="https://github.com/1310744545"><img src="https://github.com/fluidicon.png" style="height: 40px;width: 40px;"></a></span><br>
+      <span>Copyright @2020 1310744545</span><br>
+      <span><a href="http://beian.miit.gov.cn/" style="text-decoration: none;">黑ICP备20000673号-1</a></span>
+    </el-footer>
   </el-container>
 </template>
 
@@ -78,7 +82,7 @@
       return {
         loginFlag: false,
         activeIndex: '/index/index',
-        id:window.sessionStorage.getItem('id'),
+        id:window.localStorage.getItem('id'),
         name: '',
         headImg: '',
         defaultHeight:{
@@ -93,7 +97,7 @@
       logout() { //退出
         this.$http.post('/logout');
         this.loginFlag = false;
-        window.sessionStorage.clear();
+        window.localStorage.clear();
         this.$router.push('/index/index');
       },
       handleSelect(key, keyPath) {
@@ -103,10 +107,10 @@
           this.$router.push(key); //切换组件
         }
         this.activeIndex = key;
-        window.sessionStorage.setItem("myrouter", key);
+        window.localStorage.setItem("myrouter", key);
       },
       loginchick() { //登录检查
-        this.loginFlag = window.sessionStorage.getItem('loginFlag');
+        this.loginFlag = window.localStorage.getItem('loginFlag');
       },
       searchUser() {
         if (this.loginFlag) {
@@ -122,7 +126,7 @@
         this.name = $event
       },
       updaterouter() {
-        this.activeIndex = window.sessionStorage.getItem("myrouter");
+        this.activeIndex = window.localStorage.getItem("myrouter");
       },
       toMyArticle(){
         this.$router.push({
@@ -186,5 +190,15 @@
   el-button {
     left: 0;
   }
+a{
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+  -webkit-user-select: none;
+  -moz-user-focus: none;
+  -moz-user-select: none;
+}
+img{
+  width: 100%;
+  height: 100%;
+}
 
 </style>
