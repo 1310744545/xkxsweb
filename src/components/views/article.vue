@@ -122,26 +122,29 @@
     },
     mounted() {
       this.selectArtical();
+      
+      
+      $('.mymessage').css('position', 'absolute')
+      $('.mymessage').css('top', '80px')
+      document.addEventListener('scroll', function() {
+        if (window.pageYOffset >= 80) {
+          $('.mymessage').css('position', 'fixed')
+          $('.mymessage').css('top', '0')
+        } else {
+          $('.mymessage').css('position', 'absolute')
+          $('.mymessage').css('top', '80px')
+        }
+      })
     }
   }
-  //div触碰顶部固定
-  $(function() {
-    document.addEventListener('scroll', function() {
-      if (window.pageYOffset >= 80) {
-        $('.mymessage').css('position', 'fixed')
-        $('.mymessage').css('top', '0')
-      } else {
-        $('.mymessage').css('position', 'absolute')
-        $('.mymessage').css('top', '80px')
-      }
-    })
-  })
 </script>
 
 <style scoped="scoped">
 
   .big {
+    width: 1500px;
     height: 100%;
+
   }
 
   .contain {
@@ -149,7 +152,7 @@
     width: 850px;
     padding: 0px;
     margin: 0 0 0 11%;
-    float: left;
+    display: inline-block;
   }
 
   ul {
@@ -172,9 +175,8 @@
   .mymessage {
     height: 700px;
     width: 260px;
-    margin: 0 0 0 67.7%;
-    float: left;
-    position: fixed;
+    margin: 0 0 0 15px;
+    display: inline-block;
   }
 
   .title {

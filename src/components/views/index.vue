@@ -57,6 +57,7 @@
       </div>
     </div>
   </div>
+
 </template>
 
 <script>
@@ -86,32 +87,38 @@
     },
     mounted() {
       //div触碰顶部固定
-      if (window.pageYOffset >= 80) {
-        $('.mymessage').css('position', 'fixed')
-        $('.mymessage').css('top', '0')
-      } else {
-        $('.mymessage').css('position', 'absolute')
-        $('.mymessage').css('top', '80px')
-      }
+      $('.mymessage').css('position', 'absolute')
+      $('.mymessage').css('top', '80px')
+      document.addEventListener('scroll', function() {
+        if (window.pageYOffset >= 80) {
+          $('.mymessage').css('position', 'fixed')
+          $('.mymessage').css('top', '0')
+        } else {
+          $('.mymessage').css('position', 'absolute')
+          $('.mymessage').css('top', '80px')
+        }
+      })
     }
   }
 </script>
 
 <style scoped="scoped">
-  *{
+  * {
     padding: 0;
     margin: 0;
   }
+
   .big {
-    height: 100%;
+    width: 1500px;
+    height: auto;
   }
 
   .contain {
     height: 100%;
     width: 850px;
     padding: 0px;
+    display: inline-block;
     margin: 0 0 0 11%;
-    float: left;
   }
 
   ul {
@@ -144,8 +151,8 @@
   .mymessage {
     height: 700px;
     width: 260px;
-    margin: 0 0 0 67.7%;
-    float: left;
+    display: inline-block;
+    margin: 0 0 0 15px;
   }
 
   .tital {
