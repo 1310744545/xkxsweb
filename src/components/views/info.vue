@@ -54,7 +54,7 @@
           field="img"
           :width="300"
           :height="300"
-          :url="'http://localhost/headImg'"
+          :url="'http://www.xkxxkx.cn/headImg'"
           :params="params"
           img-format="jpg"
           :no-rotate="false"

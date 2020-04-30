@@ -139,10 +139,6 @@
 </script>
 
 <style scoped="scoped">
-  * {
-    margin: 0;
-    padding: 0;
-  }
 
   .big {
     height: 100%;

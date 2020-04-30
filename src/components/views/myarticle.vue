@@ -174,10 +174,6 @@
 </script>
 
 <style scoped="scoped">
-  * {
-    margin: 0;
-    padding: 0;
-  }
   .godinfoul{
     display: table;
     margin-left: auto;

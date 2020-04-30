@@ -97,7 +97,7 @@
   }
 </script>
 
-<style scoped>
+<style scoped="scoped">
   *{
     padding: 0;
     margin: 0;

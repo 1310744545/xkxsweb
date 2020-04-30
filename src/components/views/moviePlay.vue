@@ -73,11 +73,6 @@
 </script>
 
 <style scoped="scoped">
-  * {
-    padding: 0;
-    margin: 0;
-  }
-
   .play {
     width: 80%;
     height: 100%;

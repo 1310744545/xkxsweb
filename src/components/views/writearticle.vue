@@ -76,7 +76,7 @@
           time:'youle',
           title: '',
           content: '',
-          uid:window.sessionStorage.getItem('id')
+          uid:window.localStorage.getItem('id')
         },
         editorOption: {
           modules: {
@@ -187,7 +187,7 @@
 </script>
 
 
-<style>
+<style scoped="scoped">
   .writeArticle {
     height: 100%;
     width: 78%;

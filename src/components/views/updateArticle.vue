@@ -183,6 +183,10 @@
 
 
 <style>
+  *{
+    margin: 0;
+    padding: 0;
+  }
   .writeArticle {
     height: 100%;
     width: 78%;

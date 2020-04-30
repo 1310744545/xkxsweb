@@ -7,7 +7,7 @@
         <el-menu router active-text-color="#0000FE " class="el-menu-demo" mode="horizontal" :default-active="activeIndex"
           @select="handleSelect" style="width: 100px;display: flex;justify-content: left;">
 
-          <a href="localhost"><img src="../static/logo.jpg" style="width: 40px;height: 40px;margin: 12px 40px 0 50px;" /></a>
+          <a href="http://www.xkxxkx.cn"><img src="../static/logo.jpg" style="width: 40px;height: 40px;margin: 12px 40px 0 50px;" /></a>
           <el-menu-item index="/index/index"> 首页</el-menu-item>
           <el-menu-item index="/index/article"> 帖子</el-menu-item>
           <el-menu-item index="/index/MovieList"> 影视</el-menu-item>
@@ -98,6 +98,7 @@
         this.$http.post('/logout');
         this.loginFlag = false;
         window.localStorage.clear();
+        window.sessionStorage.clear();
         this.$router.push('/index/index');
       },
       handleSelect(key, keyPath) {
@@ -107,7 +108,7 @@
           this.$router.push(key); //切换组件
         }
         this.activeIndex = key;
-        window.localStorage.setItem("myrouter", key);
+        window.sessionStorage.setItem("myrouter", key);
       },
       loginchick() { //登录检查
         this.loginFlag = window.localStorage.getItem('loginFlag');
@@ -126,7 +127,7 @@
         this.name = $event
       },
       updaterouter() {
-        this.activeIndex = window.localStorage.getItem("myrouter");
+        this.activeIndex = window.sessionStorage.getItem("myrouter");
       },
       toMyArticle(){
         this.$router.push({

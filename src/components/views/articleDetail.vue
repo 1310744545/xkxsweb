@@ -124,7 +124,7 @@
         reply:{
           content:'',
           cid:'',
-          fromId:window.sessionStorage.getItem('id'),
+          fromId:window.localStorage.getItem('id'),
           toId:''
         },
         checkreplys:[],
@@ -206,18 +206,27 @@
           return result;
       },
       loginCheck(){
-        if(window.sessionStorage.getItem('loginFlag')){
-          this.comment.god.id=window.sessionStorage.getItem('id');
+        if(window.localStorage.getItem('loginFlag')){
+          this.comment.god.id=window.localStorage.getItem('id');
         }
       },
       addComment(){
-        this.article.comment++;
-        this.$http.post('/addComment',this.comment).then(dat=>{
-          this.commentsget=dat.data;
-          this.newcommentsget=this.commentsget.slice(-this.pagesize).reverse();
-          this.activeIndex=-1;
-          this.comment.comment='';
-        })
+        if(!window.localStorage.getItem('id')){
+          this.$message({
+            message: '请先登录',
+            type: 'error',
+            duration: 1500,
+            showClose: true,
+          });
+          }else{
+            this.article.comment++;
+            this.$http.post('/addComment',this.comment).then(dat=>{
+              this.commentsget=dat.data;
+              this.newcommentsget=this.commentsget.slice(-this.pagesize).reverse();
+              this.activeIndex=-1;
+              this.comment.comment='';
+            })
+          }
       },
       commentCheck(){
         this.$http.post('/commentCheck',this.comment).then(dat=>{
@@ -254,20 +263,29 @@
         }
       },
       addreply(index,cid){
-        this.$http.post('/addReply',this.reply).then(dat=>{
-          this.newcommentsget[index].replys++;
-          this.activeIndex=-1;
-          this.activeIndex2=-1;
-          this.activeReply=-1;
-          this.reply.content='';
+        if(!window.localStorage.getItem('id')){
           this.$message({
-            message: '评论成功',
-            type: 'success',
+            message: '请先登录',
+            type: 'error',
             duration: 1500,
-            showClose: true
+            showClose: true,
           });
+        }else{
+          this.$http.post('/addReply',this.reply).then(dat=>{
+            this.newcommentsget[index].replys++;
+            this.activeIndex=-1;
+            this.activeIndex2=-1;
+            this.activeReply=-1;
+            this.reply.content='';
+            this.$message({
+              message: '评论成功',
+              type: 'success',
+              duration: 1500,
+              showClose: true
+            });
 
-        })
+          })
+        }
       },
       checkreply(cid,index){
         if(index==this.activeReply){
@@ -291,10 +309,7 @@
 </script>
 
 <style scoped="scoped">
-  *{
-    margin: 0;
-    padding: 0;
-  }
+
   .articleDetail {
     height: auto;
     width: 75%;

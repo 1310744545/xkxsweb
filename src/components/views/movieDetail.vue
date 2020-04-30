@@ -81,7 +81,7 @@
   }
 </script>
 
-<style scoped>
+<style scoped="scoped">
   .movieDetail {
     width: 60%;
     height: auto;
