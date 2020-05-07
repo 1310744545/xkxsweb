@@ -2,6 +2,7 @@
   <div class="info">
       <div class="shengming"><h1>声明</h1></div>
       <div class="content">本站所有资源均来自网络,如有侵权,请联系删除</div>
+      <!-- <span @click="testasd">asd</span> -->
   </div>
 </template>
 
@@ -10,6 +11,11 @@
     data(){
       return{
         labelPosition:'left'
+      }
+    },
+    methods:{
+      testasd(){
+        // this.$http.post('/testasd',{name:'大傻逼'})
       }
     }
   }

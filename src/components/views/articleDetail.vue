@@ -365,9 +365,8 @@
     margin: 0 0 0 5%;
 
   }
-</style>
-<style>
-img{
- width: 100%;
- }
+  img{
+    width: auto;
+   max-width: 100%;
+   }
 </style>

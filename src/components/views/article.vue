@@ -10,8 +10,8 @@
         <el-card shadow="hover" style="height: 100%;margin: 0 0 10px 0;">
           <li class="upli">
             <div class="title">
-              <router-link :to="{name:'articleDetail',query:{aid:item.aid}}" style="font-size: 40px;" class="titlerouter">{{item.title}}</router-link>
-              <div class="contentsmall" v-html="replaceImg(item.content)"></div>
+              <router-link :to="{name:'articleDetail',query:{aid:item.aid}}" style="font-size: 40px;width:100%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis; display:block;" class="titlerouter">{{item.title}}</router-link>
+              <div class="contentsmall" v-html="replaceImg(item.content)" style="width:90%;white-space:nowrap;overflow:hidden;text-overflow:ellipsis; display:block;"></div>
             </div>
             <div class="message">
               <ul class="downul">
@@ -101,8 +101,8 @@
       replaceImg(msg) {
         var img = /<\/?.+?\/?>/g;
         var newmsg = msg.replace(img, '');
-        if (newmsg.length > 40)
-          return newmsg.slice(0, 40) + '...'
+        // if (newmsg.length > 40)
+        //   return newmsg.slice(0, 40) + '...'
         return newmsg
       },
       handleSizeChange() {
@@ -122,8 +122,8 @@
     },
     mounted() {
       this.selectArtical();
-      
-      
+
+
       $('.mymessage').css('position', 'absolute')
       $('.mymessage').css('top', '80px')
       document.addEventListener('scroll', function() {

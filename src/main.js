@@ -3,9 +3,8 @@ import $ from 'jquery'
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router.js'
-
-
 import axios from 'axios'
+
 axios.defaults.baseURL = 'http://www.xkxxkx.cn' //请求的根路径
 axios.interceptors.request.use(config => {
   // console.log(config)

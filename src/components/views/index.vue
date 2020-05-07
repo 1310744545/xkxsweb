@@ -22,7 +22,7 @@
             <img src="http://www.xkxxkx.cn:8080/lunbo/0.jpg" style="float: right;" />
             内容与功能更新
           </router-link>
-          <div style="margin: 0 0 0 2%;"> 暂无...</div>
+          <div style="margin: 0 0 0 2%;">2020.05.06 新增qq第三方登录...</div>
         </li>
         <li>
           <router-link :to="{name:'articleDetail',query:{aid:2}}" class="back">
@@ -99,6 +99,7 @@
         }
       })
     }
+
   }
 </script>
 
